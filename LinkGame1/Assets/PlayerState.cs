@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState
+public class PlayerState 
 {
     protected PlayerStateMachine stateMachine;
     protected Player player;
+    protected Rigidbody2D rb;
 
+    protected float xInput;
     private string animBoolName;
+    protected float stateTimer;
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string animBoolName)
     {
@@ -18,15 +21,19 @@ public class PlayerState
     }
     public virtual void Enter()
     {
-        Debug.Log("I enter "+animBoolName);
+        player.anim.SetBool(animBoolName, true);
+        rb = player.rb;
     }
 
     public virtual void Exit()
     {
-        Debug.Log("I exit "+animBoolName);
+        player.anim.SetBool(animBoolName, false);
     }
     public virtual void Update()
     {
-        Debug.Log("I'm in "+animBoolName);
+        stateTimer-= Time.deltaTime;
+        
+        xInput = Input.GetAxisRaw("Horizontal");
+        player.anim.SetFloat("yVelocity",rb.velocity.y);
     }
 }
