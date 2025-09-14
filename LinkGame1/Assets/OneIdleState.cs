@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OneIdleState : EnemyState
+public class OneIdleState :OneGroundedState
 {
-    private Enemy_One enemy;
-    public OneIdleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_One _enemy) : base(_enemy, _stateMachine, _animBoolName)
+    public OneIdleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_One enemy) : base(_enemyBase, _stateMachine, _animBoolName, enemy)
     {
-        enemy = _enemy;
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -23,5 +22,7 @@ public class OneIdleState : EnemyState
         base.Update();
         if (stateTimer < 0)
             stateMachine.ChangeState(enemy.moveState);
+
+       
     }
 }
